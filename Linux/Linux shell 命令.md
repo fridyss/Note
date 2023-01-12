@@ -388,3 +388,163 @@ dd if=/dev/zero of=sun.txt bs=1M count=1
 
 ```
 
+## FDISK命令
+
+​		fdisk命令用于查看系统硬盘及sd卡的分区情况，同是也可以利用fdisk对设备进行分区管理。
+
+### 1，语法格式
+
+​	fdisk [options] device
+
+​	fdisk -l device
+
+- options：属性选项
+- -l ： 列出当前设备
+
+### 2，属性选项
+
+| 属性 | 备注                                                         |
+| ---- | ------------------------------------------------------------ |
+| -b   | --sector-size <size>      physical and logical sector size   |
+| -c   | --compatibility[=<mode>]  mode is 'dos' or 'nondos' (default |
+| -l   | --list                    display partitions end exit        |
+| -C   | --cylinders <number>      specify the number of cylinders    |
+| -H   | --heads <number>          specify the number of heads        |
+| -S   | --sectors <number>        specify the number of sectors per track |
+
+```bash
+sudo fdisk /dev/sdb
+Welcome to fdisk (util-linux 2.27.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+Command (m for help):m							#m显示帮助菜单
+  DOS (MBR)
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+
+  Generic
+   d   delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+
+  Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality (experts only)
+
+  Script
+   I   load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+
+  Save & Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI (IRIX) partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+
+```
+
+
+
+### 3，使用命令
+
+-  查看当前磁盘设备列表
+
+```bash
+umount /media/fridy/B5C1-EEAE 		# 先
+sudo fdisk -l 
+
+Disk /dev/sdb: 29.7 GiB, 31914983424 bytes, 62333952 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x37ef716d
+
+Device     Boot Start      End  Sectors  Size Id Type
+/dev/sdb1        8192 62333951 62325760 29.7G  7 HPFS/NTFS/exFAT
+```
+
+-  删除设备分区
+
+```
+sudo fdisk /dev/sdb
+Command (m for help):p 				#可以查看磁盘分区情况
+Command (m for help):d				#删除分区，如果只有一个分区，删除当前分区
+Selected partition 1
+Partition 1 has been deleted.
+```
+
+- 创建分区
+
+```
+#输入n建立新的磁盘分区， 分别创那200M和29.5G的主分区
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions
+Select (default p): p
+Partition number (1-4, default 1): 
+First sector (2048-62333951, default 2048): 
+Last sector, +sectors or +size{K,M,G,T,P} (2048-62333951, default 62333951): +200M           
+
+Created a new partition 1 of type 'Linux' and of size 200 MiB.
+
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (2-4, default 2): 
+First sector (411648-62333951, default 411648): 
+Last sector, +sectors or +size{K,M,G,T,P} (411648-62333951, default 62333951): 
+
+Created a new partition 2 of type 'Linux' and of size 29.5 GiB.
+```
+
+- 确认 分区情况
+
+```
+Select (default p): w
+Command (m for help): p
+Disk /dev/sdb: 29.7 GiB, 31914983424 bytes, 62333952 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x37ef716d
+
+Device     Boot  Start      End  Sectors  Size Id Type
+/dev/sdb1         2048   411647   409600  200M 83 Linux
+/dev/sdb2       411648 62333951 61922304 29.5G 83 Linux
+```
+
+- 格式化分区
+
+```
+sudo mkfs.vfat /dev/sdb1
+sudo mkfs.ext4 /dev/sdb2
+```
+
+- 更改分区信息
+
+```bash
+#注意，fatlabel对应fat，toune2fs 对应ext4，e2label对应 ext3,ext2.
+sudo umont /dev/sdb1 
+sudo fatlabel /dev/sdb1 boot
+sodo umont /dev/sdb2
+sudo tune2fs /dev/sdb2 -L rootfs
+#可以查看分区信息
+df -Th
+```
+

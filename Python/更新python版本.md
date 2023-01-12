@@ -66,7 +66,7 @@ pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.7)
 
 ## 5,更改pip3镜像源
 
-1. ​	清华：https://pypi.tuna.tsinghua.edu.cn/simple
+1. 清华：https://pypi.tuna.tsinghua.edu.cn/simple
 2.   中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
 3.   华中理工大学：http://pypi.hustunique.com/
 4.   山东理工大学：http://pypi.sdutlinux.org/
