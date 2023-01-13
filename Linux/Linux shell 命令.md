@@ -548,3 +548,14 @@ sudo tune2fs /dev/sdb2 -L rootfs
 df -Th
 ```
 
+## SUDO命令
+
+如果 sudo命令提示：`sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set`无法进入root权限。
+
+```
+chown root:root /usr/bin/sudo
+chmod 4755 /usr/bin/sudo
+chmod 644 /usr/lib/sudo/sudoers.so
+chown -R root /usr/lib/sudo
+```
+
