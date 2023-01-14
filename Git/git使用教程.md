@@ -90,8 +90,8 @@ $ git config --global gui.encoding utf-8 # gitk 和 gui 命令会打界面git,�
 
 ```bash
 vim .gitignore
-*.[oa]						#  .o / .a 结尾的文件不纳入版本管理
-*~							#  以波浪符（~）结尾的文件被忽略，编辑器（Emacs）的副本文件名一般以~结尾。
+*.[oa]					#  .o / .a 结尾的文件不纳入版本管理
+*~					    #  以波浪符（~）结尾的文件被忽略，编辑器（Emacs）的副本文件名一般以~结尾。
 ```
 
 ​	 `.gitignore` 文件格式
@@ -165,7 +165,7 @@ $ git clone git@github.com:zh0nglihua/Demo.git  Test # 自定义项目名字为 
 $ mkdir Test && cd Test
 $ git init
 $ git branch -M main	# 强制更改分支名为main.
-$ git branch -a			# 查看当前所有分支
+$ git branch -a 		# 查看当前所有分支
 * main
 ```
 
@@ -176,7 +176,7 @@ $ git branch -a			# 查看当前所有分支
 
 ```bash
 $ git remote add origin git@github.com:zh0nglihua/Demo.git 
-$ git pull origin main:main			# 	拉取远程仓库, 并且合并当前main分支。
+$ git pull origin main:main			# 拉取远程仓库, 并且合并当前main分支。
 remote: Enumerating objects: 14, done.
 remote: Counting objects: 100% (14/14), done.
 remote: Compressing objects: 100% (7/7), done.
@@ -187,8 +187,8 @@ From github.com:zh0nglihua/Demo
  * [new branch]      main       -> origin/main
 # 如果提示 ![rejected], 说明两个版本不一致，需要进行变基操作。
 $ git pull --rebase origin main
-$ git push -u origin main			#提交本地分支到远程分支 u -> --set-upstream
-$ cd .git && cat config				#查看config文件，config文件追加了[remote "origin"]
+$ git push -u origin main			# 提交本地分支到远程分支 u -> --set-upstream
+$ cd .git && cat config				# 查看config文件，config文件追加了[remote "origin"]
 [remote "origin"]
         url = git@github.com:zh0nglihua/Demo.git
         fetch = +refs/heads/*:refs/remotes/origin/*
