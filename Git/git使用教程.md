@@ -164,7 +164,7 @@ $ git clone git@github.com:zh0nglihua/Demo.git  Test # 自定义项目名字为 
 ```bash
 $ mkdir Test && cd Test
 $ git init
-$ git branch -M main  	# 强制更改分支名为main.
+$ git branch -M main	# 强制更改分支名为main.
 $ git branch -a			# 查看当前所有分支
 * main
 ```
