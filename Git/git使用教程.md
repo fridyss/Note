@@ -8,7 +8,7 @@
 
 ​		本地控制系统（Local Control System）人为通过复制整个项目目录来进行版本管理，或许会添加日期和版本号加于区分各个版本的信息，这样一定程度上方便快捷，不需要花时间学习额外的应用，但是特别容易犯错 ，不可控因素太多。			
 
- 			<img src="./image/LCS.jpg" alt="LCS" style="zoom:67%;" />
+​			<img src="./image/LCS.jpg" alt="LCS" style="zoom:67%;" />
 
 ### 1.2 集中控制
 
