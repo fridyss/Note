@@ -82,7 +82,7 @@ $ ssk-keygen -t ed25519 -f filename #-t 加密方式, -f  输出文件名
 $ git config --global gui.encoding utf-8 # gitk 和 gui 命令会打界面git,不设置会出现中文乱码。
 ```
 
-- 配置忽略文件  、
+- 配置忽略文件  
 
 ​	 如果要将一些忽略文件，移除Git版本管理文件， 可以通过配置`.gitignore`，例如将一些日志文件，编译文件移附版本管理。将
 
