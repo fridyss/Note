@@ -82,19 +82,162 @@ $ ssk-keygen -t ed25519 -f filename #-t 加密方式, -f  输出文件名
 $ git config --global gui.encoding utf-8 # gitk 和 gui 命令会打界面git,不设置会出现中文乱码。
 ```
 
-## 3 Git仓库
+- 配置忽略文件  、
+
+​	 如果要将一些忽略文件，移除Git版本管理文件， 可以通过配置`.gitignore`，例如将一些日志文件，编译文件移附版本管理。将
+
+*.[oa] ,  *~  输入到.gitignore文件。
+
+```bash
+vim .gitignore
+*.[oa]						#  .o / .a 结尾的文件不纳入版本管理
+*~							#  以波浪符（~）结尾的文件被忽略，编辑器（Emacs）的副本文件名一般以~结尾。
+```
+
+​	 `.gitignore` 文件格式
+
+- `#` 字符开关，表示注释 。
+- glob通配符格式。`glob` 是一种文件匹配模式，全称 *global*，它起源于 Unix 的 bash shell。
+
+| 通配符   | 功能                                                         |
+| -------- | ------------------------------------------------------------ |
+| `*`      | 匹配除了斜杠(/)之外的所有字符。 Windows上是斜杠(`/`)和反斜杠(`\`) |
+| `**`     | 匹配零个或多个目录及子目录。不包含 `.` 以及 `..` 开头的。    |
+| `?`      | 匹配任意单个字符。                                           |
+| `[adc]`  | 匹配 `adc`中的其中一个字符。                                 |
+| `[!adc]` | 匹配不在 `adc`中的任意一个字符。                             |
+| `[0-9]`  | 匹配0~9的任意一个数字                                        |
+| `\`      | 转义符。                                                     |
+| `!`      | 排除符。                                                     |
+| `+`      | 匹配一个或多个的字符串。                                     |
+| `@`      | 匹配至少一个字符。                                           |
+| `[...]`  | POSIX style character classes inside sequences.              |
+
+ 创建.gitignore,用于测试。
+
+```bash
+# 忽略所有.a结尾文件
+*.a
+# 表示前面虽然已经忽略了.a文件，！取反，表示不包lib.a
+!lib.a
+# 只忽略当前test1文件下文件
+/test1
+# 忽略任何build文件夹下的文件。
+build/
+# 忽略doc文件夹下的以.txt文件
+doc/*.txt
+# 忽略doc文件夹，包括子目录，下的所有.txt文件
+doc/**/*.txt
+```
 
 
 
-## 4 Git基本操作
+## 4 Git仓库
 
-​		Git 基本操作命令，可以分为
+​	获取Git仓库的方式，主要有两个方式， （1），通过`git init` 命令本地创建， （2）， 通过 `git clone`命令远程拉取 。
 
-## 5 Git分支管理
+### 4.1 创建本地仓库
+
+​	通过`git init`命令生成版本库管理所需要的文件信息，该命令将创建一个名为 .git 的子目录，这个子目录含有你初始化的 Git 仓库中所有的必须文件。
+
+```
+$ mkdir Demo 
+$ cd Demo 
+$ git init
+```
+
+### 4.2 创建远程仓库
+
+​	通过`git clone <url>`  命令克隆服务器上的git版本。
+
+```bash
+$ git clone git@github.com:zh0nglihua/Demo.git # 在当前目录创建一个Demo文件夹,里面包含.git版本信息
+$ git clone git@github.com:zh0nglihua/Demo.git  Test # 自定义项目名字为 "Test"
+```
+
+### 4.3 关联本地仓库
+
+​	由于本地创建的仓库，默认的分支名为master,  而github创建的远程仓库默认分支main, 所以在创建完仓库时， 需要将分支名改为同一个名字（main）。
+
+- 创建本地 Test 项目
+
+```bash
+$ mkdir Test && cd Test
+$ git init
+$ git branch -M main  	# 强制更改分支名为main.
+$ git branch -a			# 查看当前所有分支
+* main
+```
+
+- github新建项目Demo: git@github.com:zh0nglihua/Demo.git
+- 本地与远程仓库关联
+
+​		关联origin 与 git@github.com:zh0nglihua/Demo.git
+
+```bash
+$ git remote add origin git@github.com:zh0nglihua/Demo.git 
+$ git pull origin main:main			# 	拉取远程仓库, 并且合并当前main分支。
+remote: Enumerating objects: 14, done.
+remote: Counting objects: 100% (14/14), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 14 (delta 1), reused 12 (delta 1), pack-reused 0
+Unpacking objects: 100% (14/14), 1.43 KiB | 54.00 KiB/s, done.
+From github.com:zh0nglihua/Demo
+ ! [rejected]        main       -> main  (non-fast-forward)
+ * [new branch]      main       -> origin/main
+# 如果提示 ![rejected], 说明两个版本不一致，需要进行变基操作。
+$ git pull --rebase origin main
+$ git push -u origin main			#	提交本地分支到远程分支 u -> --set-upstream
+$ cd .git && cat config				#	查看config文件，config文件追加了[remote "origin"]
+[remote "origin"]
+        url = git@github.com:zh0nglihua/Demo.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+## 5 Git命令
+
+​		Git 基本操作命，如果想了解某个命令的详情操作，则可以通过命令 `git [commnad] --help`  ,  例如 `git status --help`, 可以查看`git status` 命令的详情操作。
+
+### 5.1命令简介
+
+| 命令           | 备注                                              |
+| -------------- | ------------------------------------------------- |
+| `git init`     | 初始化 Git本地仓库,在当前目录生成一个`.git`文件夹 |
+| `git clone`    | 克隆远程服务器仓库                                |
+| `git add`      | 跟踪文件，将文件添加到Index暂存区                 |
+| `git commit`   | 将暂存区里提交到本地版本库                        |
+| `git status`   | 查看文件状态                                      |
+| `git log`      | 查看提交历史                                      |
+| `git rm`       | 删除文件                                          |
+| `git mv`       | 重命令文件                                        |
+| `git diff`     | 文件差异比较t                                     |
+| `git checkout` | 检出当前分支的文件并覆盖工作区的文件              |
+| `git reset`    | 撤销操作                                          |
+| `git remote`   | 查看远程仓库                                      |
+| `git fetch`    | 拉取远程仓库                                      |
+| `git pull`     | 取回远程主机某个分支,并与本地的指定分支合并       |
+| `git push`     | 推送当前分支到远程仓库                            |
+| `git tag`      | 给某个版本打上标签，相当于别名，常用于版本release |
+| `git branch`   | 版本分支                                          |
+|                |                                                   |
+
+### 5.2 命令详情
 
 
 
-## 5 Git原理
+## 5 Git 标签管理
+
+
+
+## 6 Git分支管理
+
+
+
+## 7 Git提交代码规范
+
+
+
+## 8 Git原理
 
 
 
