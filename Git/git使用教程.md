@@ -65,7 +65,8 @@ sudo apt install git-all
 ```bash
 $ git config --global user.name "fridy"
 $ git config --global user.email fridy@outlook.com
-$ git config --list 			# 可以查看配置情况
+# 可以查看配置情况
+$ git config --list 			
 user.email=fridy@outlook.com
 user.name=fridy
 ```
@@ -73,13 +74,15 @@ user.name=fridy
 - 生成ssh密钥
 
 ```bash
-$ ssk-keygen -t ed25519 -f filename #-t 加密方式, -f  输出文件名
+#-t 加密方式, -f  输出文件名
+$ ssk-keygen -t ed25519 -f filename 
 ```
 
 - 更改gitk gui 的编码方式
 
 ```bash
-$ git config --global gui.encoding utf-8 # gitk 和 gui 命令会打界面git,不设置会出现中文乱码。
+# gitk 和 gui 命令会打界面git,不设置会出现中文乱码。
+$ git config --global gui.encoding utf-8 
 ```
 
 - 配置忽略文件  
@@ -90,8 +93,10 @@ $ git config --global gui.encoding utf-8 # gitk 和 gui 命令会打界面git,�
 
 ```bash
 vim .gitignore
-*.[oa]					#  .o / .a 结尾的文件不纳入版本管理
-*~					    #  以波浪符（~）结尾的文件被忽略，编辑器（Emacs）的副本文件名一般以~结尾。
+#  .o / .a 结尾的文件不纳入版本管理
+*.[oa]
+#  以波浪符（~）结尾的文件被忽略，编辑器（Emacs）的副本文件名一般以~结尾。
+*~					    
 ```
 
 ​	 `.gitignore` 文件格式
@@ -193,8 +198,10 @@ $ git clone git@github.com:zh0nglihua/Demo.git  Test # 自定义项目名字为 
 ```bash
 $ mkdir Test && cd Test
 $ git init
-$ git branch -M main	# 强制更改分支名为main.
-$ git branch -a 		# 查看当前所有分支
+# 强制更改分支名为main.
+$ git branch -M main
+# 查看当前所有分支
+$ git branch -a 		
 * main
 ```
 
@@ -216,8 +223,10 @@ From github.com:zh0nglihua/Demo
  * [new branch]      main       -> origin/main
 # 如果提示 ![rejected], 说明两个版本不一致，需要进行变基操作。
 $ git pull --rebase origin main
-$ git push -u origin main			# 提交本地分支到远程分支 u -> --set-upstream
-$ cd .git && cat config				# 查看config文件，config文件追加了[remote "origin"]
+# 提交本地分支到远程分支 u -> --set-upstream
+$ git push -u origin main
+# 查看config文件，config文件追加了[remote "origin"]
+$ cd .git && cat config				
 [remote "origin"]
         url = git@github.com:zh0nglihua/Demo.git
         fetch = +refs/heads/*:refs/remotes/origin/*
