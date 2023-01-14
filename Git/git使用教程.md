@@ -187,8 +187,8 @@ From github.com:zh0nglihua/Demo
  * [new branch]      main       -> origin/main
 # 如果提示 ![rejected], 说明两个版本不一致，需要进行变基操作。
 $ git pull --rebase origin main
-$ git push -u origin main			#	提交本地分支到远程分支 u -> --set-upstream
-$ cd .git && cat config				#	查看config文件，config文件追加了[remote "origin"]
+$ git push -u origin main			#提交本地分支到远程分支 u -> --set-upstream
+$ cd .git && cat config				#查看config文件，config文件追加了[remote "origin"]
 [remote "origin"]
         url = git@github.com:zh0nglihua/Demo.git
         fetch = +refs/heads/*:refs/remotes/origin/*
