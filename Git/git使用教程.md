@@ -130,7 +130,36 @@ doc/*.txt
 doc/**/*.txt
 ```
 
+- 配置`.EditorConfig`
 
+​	EditorConfig 有助于为跨各种编辑器和 IDE 处理同一项目的多个开发人员维护一致的编码风格，在项目根目录下新建`.EditorConfig`文件。配置tabsize为4。EditorConfig 文件采用类似 INI 的文件格式。
+
+```
+$ mkdir .EditorConfig && vim .EditorConfig
+```
+
+```ini
+# top-most EditorConfig file
+root = true
+# all files
+[*]
+#缩进格式为tab类型, 大小为4, 类型还可以配置为space，空格类型。
+indent_style = tab		
+indent_size = 4
+```
+
+ 属性值
+
+| 属性值                     | 备注                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| `root`                     | 表示是最顶层的配置文件，发现值为true时，才会停止查找`.editorconfig`文件 |
+| `indent_style`             | tab表示制表符，space 表示 空格                               |
+| `indent_size`              | 设置space类型的大小                                          |
+| `tab_width`                | 设置tab类型的宽度大小，没有配置则会取ident_size的大小        |
+| `end_of_line`              | 设置换行符，值为`lf,cr,crlf`                                 |
+| `charset`                  | 设置编码格式，值为`latin1,utf-8,utf-8-bom,utf-16be,utf-16le` |
+| `trim_trailing_whitespace` | 设置为true忽略连续空格和单个换行符                           |
+| `insert_final_newline`     | 设置为true以确保文件在保存时以换行符结尾                     |
 
 ## 4 Git仓库
 
