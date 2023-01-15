@@ -492,18 +492,40 @@ git diff [options]
 
 -   命令使用
 
-```bash
+~~~bash
 # 比较工作区与上次提交内容差异,缺省选项为HEAD
 $ git diff HEAD
 # 比较最近两次提交的差异, HEAD^表示HEAD上一次提交，HEAD^^表示上上次。
 # HEAD~ 和 HEAD^, 则表示祖父提交，可以用HEAD~2
 $ git diff HEAD HEAD^
+index 2fc8aa3..a4ee2a4 100644
+--- a/Git/git使用教程.md
++++ b/Git/git使用教程.md
+@@ -501,9 +501,8 @@ $ git diff HEAD HEAD^
+
+ ```
+
+-123556
++123456
+ 1111111
+-222222
+
+ #### 5.2.10 git checkout
+
+~~~
+
+HEAD -> `a/Git/git使用教程.md`, HEAD^ ->  `b/Git/git使用教程.md`  ;  
+@@ -501,8 +501,9 @@ $ git diff HEAD HEAD^ , `-`表示第一个文件，`+`表示第二个文件，`501` 表示开始行号，`8,9` 表示 ，第一个文件共8行，第二个文件共9号。所以解释出a/b文件的差异。
 
 ```
-
+# HEAD指向的文件
 123556
-1111111
+111111
 222222
+# HEAD^ 指向的文件
+123456
+111111
+```
 
 #### 5.2.10 git checkout
 
