@@ -317,8 +317,7 @@ git commit [options]
 # 暂存当前已经被跟踪过的文件并提交到版本库
 git commit -am "message"  
 # 追加提交
-git commit --amend 
-
+git commit -a --amend 
 ```
 
 #### 5.2.5 git status
@@ -326,12 +325,47 @@ git commit --amend
 -   语法格式
 
 ```
-git status 
+git status [options] 
 ```
 
+​	`options` : `-s`    --short 表示简短显示文件状态，`-b` 表示显示分支情况，`--ignored` 列出被忽略的文件，-u 表示显示子目录文件名。
 
+```bash
+git status -s
+M Git/git使用教程.md
+?? sudir/
+```
+
+  	-s 返回格式，XY PATH1 -> PATH2, X显示索引的状态，Y表示工作树的状态, 与最近一次提交作比较。PATH1 表示最近一次提交的文件， `-> PATH2`表示索引或工作目录中文件。
+
+​	 XY状态
+
+| 状态 | 信息                 |
+| :--- | -------------------- |
+| ’ ’  | unmodified           |
+| M    | modified             |
+| A    | added                |
+| D    | deleted              |
+| R    | renamed              |
+| C    | copied               |
+| U    | updated but unmerged |
+| ??   | untracked            |
+| !!   | ignored              |
+
+-   使命使用
+
+```bash
+# 显示精简,分支，文件名。
+git status -sbu 
+ ## main...origin/main [ahead 2]
+ M Git/git使用教程.md
+ D sudir/a.c
+?? sudir/subfile.txt
+```
 
 #### 5.2.6 git log
+
+-   语法格式
 
 #### 5.2.7 git rm
 
