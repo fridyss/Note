@@ -538,12 +538,11 @@ git checkout file
 -   命令使用
 
 ```bash
-# 从git仓库区检出最新文件，并覆盖当前文件。
-$ git checkout git使用教程.md
-# 重置当前项目所有更改
+# 从git仓库区检出最新文件，并覆盖当前工作区文件。
+$ git checkout Git/git使用教程.md
+# 重置当前项目所有工作区更改
 $ git checkout .
 # 从远程仓库
-
 ```
 
 
