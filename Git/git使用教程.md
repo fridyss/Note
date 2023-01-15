@@ -540,14 +540,33 @@ git checkout file
 ```bash
 # 从git仓库区检出最新文件，并覆盖当前工作区文件。
 $ git checkout Git/git使用教程.md
-# 重置当前项目所有工作区更改
+# 重置当前工作区所有更改
 $ git checkout .
-# 从远程仓库
+# 从远程仓库检测文件, 缺省是默认分支。
+$ git checkout origin
 ```
 
-
-
 #### 5.2.11 git  reset
+
+​	`git reset` 用于撤消上次提交（git commit ），重新修改文件后再次提交。共有三个模式，--soft, --mixed, --hard。
+
+-   语法格式
+
+```
+git reset [options] [file]
+```
+
+-   选项参数
+
+| 参数    | 备注 |
+| ------- | ---- |
+| --hard  |      |
+| --mixed |      |
+| --soft  |      |
+
+
+
+-   命令使用
 
 #### 5.2.12 git remote
 
