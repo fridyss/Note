@@ -367,6 +367,82 @@ git status -sbu
 
 -   语法格式
 
+```
+git log [options] files
+```
+
+-   选项参数
+
+| 选项         | 备注                                                         |
+| ------------ | ------------------------------------------------------------ |
+| --oneline    | 以精简方式输出信息。                                         |
+| --stat       | 输出增删改行统计。                                           |
+| -p           | 输出每个 commit 具体修改的内容，输出的形式以 diff 的形式给出。 |
+| --pretty     | 自定义输出的信息。                                           |
+| --author     | 用来过滤 commit，限定输出给定的用户。                        |
+| -n           | 限制要输出的数量。                                           |
+| --after      | 输出在指定日期之后的记录。                                   |
+| --before     | 输出在指定日期之前的记录。                                   |
+| --grep       | 搜索提交信息,也支持正常表达式（只能搜索标签、不可搜索内容）。 |
+| –branch Name | 查看指定分支提交记录。                                       |
+| –graph       | 图形方式列出提交记录。                                       |
+
+-   --pretty=format 格式参数，自定义格式
+
+| 选项 | 备注                                         |
+| ---- | -------------------------------------------- |
+| %H   | 提交对象（commit）的完整哈希字串。           |
+| %h   | 提交对象的简短哈希字串。                     |
+| %T   | 树对象（tree）的完整哈希字串。               |
+| %t   | 树对象的简短哈希字串。                       |
+| %P   | 父对象（parent）的完整哈希字串。             |
+| %p   | 父对象的简短哈希字串。                       |
+| %an  | 作者（author）的名字。                       |
+| %ae  | 作者的电子邮件地址。                         |
+| %ad  | 作者修订日期（可以用 -date= 选项定制格式）。 |
+| %ar  | 作者修订日期，按多久以前的方式显示。         |
+| %cn  | 提交者(committer)的名字。                    |
+| %ce  | 提交者的电子邮件地址。                       |
+| %cd  | 提交日期。                                   |
+| %cr  | 提交日期，按多久以前的方式显示。             |
+| %s   | 提交说明。                                   |
+
+-   命令使用
+
+```bash
+#限定输出信息条，指定提交信息作者及限定精简输出。
+$ git log -2 --author "zhonglihua" --oneline
+f66e78d (HEAD -> main) update git.md
+7715519 add a.c
+```
+
+```bash
+#自定义格式输出
+$ git log --pretty=format:"%an %ce %s" --graph -18
+* zhonglihua fridy@outlook.com update git.md
+* zhonglihua fridy@outlook.com add a.c
+* zhonglihua fridy@outlook.com update git使用教程.md test amend property
+* zhonglihua fridy@outlook.com test
+* zhonglihua fridy@outlook.com test
+* zhonglihua fridy@outlook.com test
+* zhonglihua fridy@outlook.com add test.txt
+* zhonglihua fridy@outlook.com format file
+* zhonglihua fridy@outlook.com modified .editorconfig tab width
+* zhonglihua fridy@outlook.com rename .EditorConfig to .editorconfig
+*   zhonglihua fridy@outlook.com Merge branch 'main' of github.com:fridyss/Note
+|\
+| * fridy noreply@github.com update git使用教程.md
+* | zhonglihua fridy@outlook.com fiexed tabsize && add .EditorConfig
+* | zhonglihua fridy@outlook.com add
+|/
+* zhonglihua fridy@outlook.com fixed tab size
+* zhonglihua fridy@outlook.com fixed tab size
+* zhonglihua fridy@outlook.com modified tabsize is 4
+* zhonglihua fridy@outlook.com fixed LCS.jpg
+```
+
+
+
 #### 5.2.7 git rm
 
 #### 5.2.8 git mv
