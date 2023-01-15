@@ -492,7 +492,7 @@ git diff [options]
 
 -   命令使用
 
-```
+```bash
 # 比较工作区与上次提交内容差异,缺省选项为HEAD
 $ git diff HEAD
 # 比较最近两次提交的差异, HEAD^表示HEAD上一次提交，HEAD^^表示上上次。
@@ -500,7 +500,7 @@ $ git diff HEAD HEAD^
 
 ```
 
-
+12345
 
 #### 5.2.10 git checkout
 
