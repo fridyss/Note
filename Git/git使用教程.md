@@ -497,10 +497,9 @@ git diff [options]
 $ git diff HEAD
 # 比较最近两次提交的差异, HEAD^表示HEAD上一次提交，HEAD^^表示上上次。
 $ git diff HEAD HEAD^
-
 ```
 
-12345
+​	
 
 #### 5.2.10 git checkout
 
