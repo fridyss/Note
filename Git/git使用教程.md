@@ -307,7 +307,29 @@ git add [options] files
 
 -   语法格式
 
+```
+git commit [options]
+```
+
+​	`optinos` : `-m` 提交版本信息指定内容注释。`-a` 提交已经跟踪过的文件，不包含untracked文件。`--amend`  追加提交，将本次的commit 提交合并的上次提交的commit_id 中。
+
+```bash
+# 暂存当前已经被跟踪过的文件并提交到版本库
+git commit -am "message"  
+# 追加提交
+git commit --amend 
+
+```
+
 #### 5.2.5 git status
+
+-   语法格式
+
+```
+git status 
+```
+
+
 
 #### 5.2.6 git log
 
