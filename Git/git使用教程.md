@@ -449,11 +449,58 @@ $ git log --pretty=format:"%an %ce %s" --graph -18
 git rm [options] file
 ```
 
+-   选项参数
 
+| 参数     | 备注                               |
+| -------- | ---------------------------------- |
+| -r       | 递归操作                           |
+| -f       | 强制删除                           |
+| --cached | 从暂存区删除，但不会从本地删除文件 |
+
+-   命令使用
+
+```bash
+# 从缓存区或者git仓库区强制删除。
+$ git rm  -f sudir/d.c
+# 从缓存区删除
+$ git rm --cached sudir/e.c
+```
 
 #### 5.2.8 git mv
 
+-   语法格式
+
+```
+git mv [options] files
+```
+
 #### 5.2.9 git diff
+
+-   语法格式
+
+```
+git diff [options]
+```
+
+-   参数选项
+
+| 参数     | 备注                     |
+| -------- | ------------------------ |
+| --cached | 比较暂存区与HEAD之间差异 |
+| --staged | 含义和--cached一样       |
+| --stat   | 以精简样式输出结果       |
+
+-   命令使用
+
+```
+# 比较工作区与上次提交内容差异,缺省选项为HEAD
+$ git diff HEAD
+# 比较最近两次提交的差异, HEAD^表示HEAD上一次提交，HEAD^^表示上上次。
+$ git diff HEAD HEAD^
+
+```
+
+
 
 #### 5.2.10 git checkout
 
