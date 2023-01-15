@@ -441,9 +441,15 @@ $ git log --pretty=format:"%an %ce %s" --graph -18
 * zhonglihua fridy@outlook.com fixed LCS.jpg
 ```
 
-
-
 #### 5.2.7 git rm
+
+-   语法格式
+
+```
+git rm [options] file
+```
+
+
 
 #### 5.2.8 git mv
 
