@@ -501,8 +501,9 @@ $ git diff HEAD HEAD^
 
 ```
 
-123456
+123556
 1111111
+222222
 
 #### 5.2.10 git checkout
 
