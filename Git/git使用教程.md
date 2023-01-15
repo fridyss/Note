@@ -496,10 +496,13 @@ git diff [options]
 # 比较工作区与上次提交内容差异,缺省选项为HEAD
 $ git diff HEAD
 # 比较最近两次提交的差异, HEAD^表示HEAD上一次提交，HEAD^^表示上上次。
+# HEAD~ 和 HEAD^, 则表示祖父提交，可以用HEAD~2
 $ git diff HEAD HEAD^
+
 ```
 
-​	123456
+123456
+1111111
 
 #### 5.2.10 git checkout
 
