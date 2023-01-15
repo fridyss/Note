@@ -529,6 +529,21 @@ HEAD -> `a/Git/git使用教程.md`, HEAD^ ->  `b/Git/git使用教程.md`  ;
 
 #### 5.2.10 git checkout
 
+-   语法格式
+
+```
+git checkout file
+```
+
+-   命令使用
+
+```
+# 从git仓库区检出最新文件，并覆盖当前文件。
+$ git checkout git使用教程.md
+```
+
+
+
 #### 5.2.11 git  reset
 
 #### 5.2.12 git remote
