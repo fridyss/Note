@@ -499,7 +499,7 @@ $ git diff HEAD
 $ git diff HEAD HEAD^
 ```
 
-​	
+​	123456
 
 #### 5.2.10 git checkout
 
