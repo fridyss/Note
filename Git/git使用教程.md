@@ -575,6 +575,53 @@ $ git reset --hard HEAD~
 
 #### 5.2.12 git remote
 
+​	操作远程服务器的仓库信息。
+
+-   语法格式
+
+```
+git remote [command] [shortname] [url]
+```
+
+-   命令选项
+
+| 命令   | 备注                 |
+| ------ | -------------------- |
+| `add`  | 关联远程代码仓库     |
+| `-v`   | 查看远程仓库地址信息 |
+| `show` | 查看远程仓库具体信息 |
+| `rm`   | 解除远程仓库关联     |
+|        |                      |
+|        |                      |
+|        |                      |
+|        |                      |
+
+-   命令使用
+
+```bash
+$ git remote add origin git@github.com:fridyss/Note.git 
+$ git remote rm origin 
+# 查看origin值
+$ cd .git && cat config
+[core]
+repositoryformatversion = 0
+filemode = false
+bare = false
+logallrefupdates = true
+symlinks = false
+ignorecase = true
+#重新关联远程仓库
+$ git remote add origin git@github.com:zh0nglihua/Note.git
+# 拉取远程分支, 合并main分支。
+$ git pull origin main　
+#并配置分支up-stream
+$ git push -u origin main
+$ cat .git/config
+
+```
+
+
+
 #### 5.2.13 git fetch
 
 #### 5.2.15 git pull
@@ -588,6 +635,8 @@ $ git reset --hard HEAD~
 ## 5 Git 标签管理
 
 ## 6 Git分支管理
+
+## 7 Git 工具
 
 ## 7 Git提交代码规范
 
