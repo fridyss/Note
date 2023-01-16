@@ -639,8 +639,6 @@ $ git remote origin origin_new
         merge = refs/heads/main
 ```
 
-
-
 #### 5.2.13 git fetch
 
 #### 5.2.15 git pull
