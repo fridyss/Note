@@ -610,8 +610,11 @@ bare = false
 logallrefupdates = true
 symlinks = false
 ignorecase = true
-#重新关联远程仓库并配置分支up-stream
+#重新关联远程仓库
 $ git remote add origin git@github.com:zh0nglihua/Demo.git
+# 拉取远程分支, 合并main分支。
+$ git pull origin main　
+#并配置分支up-stream
 $ git push -u origin main
 $ cat .git/config
 
