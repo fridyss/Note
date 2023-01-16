@@ -630,7 +630,7 @@ $ cat .git/config
 
 ```
 
-​		(2) git rename 
+​		(2) git  retmote rename 
 
 ```bash
 $ git remote origin origin_new
@@ -641,13 +641,110 @@ $ git remote origin origin_new
 
 #### 5.2.13 git fetch
 
+-   语法格式
+
+```
+git fetch [options]
+```
+
+-   参数选项
+
+| 选项 | 备注                                                         |
+| ---- | ------------------------------------------------------------ |
+| `-t` | --tags Fetch all tags from the remote                        |
+| `-n` | --no-tags ，缺省值，不会拉取标签信息。                       |
+| `-a` | Fetch all remotes                                            |
+| `-f` | --force <rbranch>:<lbranch> , remote branch 替代 local branch |
+
+-   命令使用
+
+```bash
+# 从服务器origin拉取仓库,包含所有分支信息。记录在.git/FETCH_HEAD.
+$　git fetch origin
+# 拉取服务器分支(remote_branch)信息。
+$ git fetch origin remote_branch
+# 拉取标签信息
+$ git fetch origin -at  
+ * [new tag]         v1.0.0     -> v1.0.0
+ * [new tag]         v2.0.0     -> v2.0.0
+ * [new tag]         v3.0.0     -> v3.0.0
+```
+
+
+
 #### 5.2.15 git pull
+
+​	取回远程主机分支的更新，并与本地合并， 相当于`git fetch` 与 `git merge` 合并命令。
+
+-   语法格式
+
+```
+git pull [options] [remote]
+```
+
+-   参数选项
+
+| 参数     | 备注                         |
+| -------- | ---------------------------- |
+| `--stat` | 显示合并差异信息             |
+| `-n`     | -no-stat ,表示不显示合并信息 |
+| `-r`     | --rebase， 变基操作          |
+
+-   命令使用
+
+```bash
+# 拉取服务器所有版本信息，并合并与当前分支相同分支。
+git pull 
+# 拉取origin/demo_branch_2 并与当前分支合并。
+git pull origin demo_branch_2
+# 拉取origin/demo_branch_2 并与main分支合并
+git pull origin demo_branch_2:main
+```
 
 #### 5.2.16 git push
 
+-   语法格式
+
+```
+git push <hostname> <lbranch>:<rbranch>
+```
+
+-   参数选项
+
+| 选项       | 备注                            |
+| ---------- | ------------------------------- |
+| `-u`       | --set--upstream,设置分支upsteam |
+| `--delete` | 删除远程仓库refs引用            |
+| `--tags`   | tag 推送到远端仓库。            |
+
+-   命令使用
+
+```bash
+#将当前分支提交到远程仓库。
+git push 
+#将本地demo_branch_x分支提交到远程分支demo_branch_x。
+git push origin demo_branch_x
+#将本地的main分支提交到远程仓库的demo_branch_x，缺省则新建分支。
+git push origin main:demo_branch_x
+#删除远程分支demo_branch_x, : 前面键入空格键。
+git push origin   :demo_branch_x
+To github.com:zh0nglihua/Demo.git
+ - [deleted]         demo_branch_x
+# 提交标签
+git push origin --tags
+```
+
 #### 5.2.17 git tag
 
+-   语法格式
+-   参数选项
+-   命令使用
+
 #### 5.2.18 git branch
+
+-   语法格式
+-   参数选项
+-   命令使用
 
 ## 5 Git 标签管理
 
