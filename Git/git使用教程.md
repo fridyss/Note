@@ -328,7 +328,14 @@ git commit -a --amend
 git status [options] 
 ```
 
-​	`options` : `-s`    --short 表示简短显示文件状态，`-b` 表示显示分支情况，`--ignored` 列出被忽略的文件，-u 表示显示子目录文件名。
+-   参数选项
+
+| 参数        | 备注                           |
+| ----------- | ------------------------------ |
+| `-s`        | --short 表示简短显示文件状态， |
+| `-b`        | 表示显示分支情况               |
+| `--ignored` | 列出被忽略的文件               |
+| `-u`        | 列出untracked文件              |
 
 ```bash
 git status -s
@@ -737,8 +744,41 @@ git push origin --tags
 #### 5.2.17 git tag
 
 -   语法格式
+
+```
+git tag [options] <tagname> [<commit> | <object>] 
+```
+
 -   参数选项
+
+| 选项 | 备注                                                         |
+| ---- | ------------------------------------------------------------ |
+| `-a` | --annotate 生成未签名的带注释标记对象                        |
+| `-s` | --sign 生成 GPG-signed 标签, 使用默认的 e-mail address 密钥  |
+| `-m` | <msg> 给出注解                                               |
+| `-l` | -l <pattern>, --list <pattern>, 列出标签信息，如果pattern给出，只列出匹配标签部分 |
+| `-d` |                                                              |
+
 -   命令使用
+
+```bash
+#为最新的提交创建标签
+$ git tag v4 -m "verions v4" 
+#推送单个标签， 
+$ git push origin v4
+#推送所有标签
+$ git push origin --tags
+#删除本地标签v4
+$ git tag -d v4
+#删除远程仓库分支V4
+$ git push origin --delete tag v4
+#指定commit id (1195c9f) 创建标签
+$ git tag -a v3.0 1195c9f -m "version 3.0"
+$ git log --oneline
+5a965a3 (HEAD -> main, tag: v7) update a.c
+0527793 (tag: v6, tag: v5, origin/main, demo_branch_xx) update a.c
+1195c9f (tag: v3.0) update a.c
+```
 
 #### 5.2.18 git branch
 
@@ -746,9 +786,9 @@ git push origin --tags
 -   参数选项
 -   命令使用
 
-## 5 Git 标签管理
+```bash
 
-## 6 Git分支管理
+```
 
 ## 7 Git 工具
 
