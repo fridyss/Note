@@ -216,7 +216,7 @@ $ git branch -a
 ```
 
 - github新建项目Demo: git@github.com:zh0nglihua/Demo.git
-- 本地与远程仓库关联
+- <a name="anchor">本地与远程仓库关联</a>  
 
 ​        关联origin 与 git@github.com:zh0nglihua/Demo.git
 
@@ -336,7 +336,7 @@ M Git/git使用教程.md
 ?? sudir/
 ```
 
-  	-s 返回格式，XY PATH1 -> PATH2, X显示索引的状态，Y表示工作树的状态, 与最近一次提交作比较。PATH1 表示最近一次提交的文件， `-> PATH2`表示索引或工作目录中文件。
+​	-s 返回格式，XY PATH1 -> PATH2, X显示索引的状态，Y表示工作树的状态, 与最近一次提交作比较。PATH1 表示最近一次提交的文件， `-> PATH2`表示索引或工作目录中文件。
 
 ​	 XY状态
 
@@ -585,18 +585,20 @@ git remote [command] [shortname] [url]
 
 -   命令选项
 
-| 命令   | 备注                 |
-| ------ | -------------------- |
-| `add`  | 关联远程代码仓库     |
-| `-v`   | 查看远程仓库地址信息 |
-| `show` | 查看远程仓库具体信息 |
-| `rm`   | 解除远程仓库关联     |
-|        |                      |
-|        |                      |
-|        |                      |
-|        |                      |
+| 命令      | 备注                       |
+| --------- | -------------------------- |
+| `add`     | 关联远程代码仓库           |
+| `-v`      | 查看远程仓库地址信息       |
+| `show`    | 查看远程仓库具体信息       |
+| `rm`      | 解除远程仓库关联           |
+| rename    | 重命名远程仓库             |
+| `set-url` | 重新设置shortname与url关联 |
 
 -   命令使用
+
+​	变基操作部分命令，查看远程操作<a href="#anchor">命令</a>。
+
+​		(1) git remote add && git remote rm 
 
 ```bash
 $ git remote add origin git@github.com:fridyss/Note.git 
@@ -604,20 +606,37 @@ $ git remote rm origin
 # 查看origin值
 $ cd .git && cat config
 [core]
-repositoryformatversion = 0
-filemode = false
-bare = false
-logallrefupdates = true
-symlinks = false
-ignorecase = true
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
 #重新关联远程仓库
 $ git remote add origin git@github.com:zh0nglihua/Note.git
 # 拉取远程分支, 合并main分支。
 $ git pull origin main　
+# 变基
+$git pull --rebase origin main
 #并配置分支up-stream
 $ git push -u origin main
 $ cat .git/config
+[remote "origin"]
+        url = git@github.com:zh0nglihua/Note.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+        remote = origin
+        merge = refs/heads/main
 
+```
+
+​		(2) git rename 
+
+```bash
+$ git remote origin origin_new
+[branch "main"]
+        remote = origin_new
+        merge = refs/heads/main
 ```
 
 
