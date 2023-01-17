@@ -599,7 +599,7 @@ git remote [command] [shortname] [url]
 | `-v`      | 查看远程仓库地址信息       |
 | `show`    | 查看远程仓库具体信息       |
 | `rm`      | 解除远程仓库关联           |
-| rename    | 重命名远程仓库             |
+| `rename`  | 重命名远程仓库             |
 | `set-url` | 重新设置shortname与url关联 |
 
 -   命令使用
@@ -663,6 +663,7 @@ git fetch [options]
 | `-n` | --no-tags ，缺省值，不会拉取标签信息。                       |
 | `-a` | Fetch all remotes                                            |
 | `-f` | --force <rbranch>:<lbranch> , remote branch 替代 local branch |
+| `-p` | --prune 修剪，对其远程仓库，删除本地存在，也远程没有的。     |
 
 -   命令使用
 
@@ -758,9 +759,11 @@ git tag [options] <tagname> [<commit> | <object>]
 | `-s` | --sign 生成 GPG-signed 标签, 使用默认的 e-mail address 密钥  |
 | `-m` | <msg> 给出注解                                               |
 | `-l` | -l <pattern>, --list <pattern>, 列出标签信息，如果pattern给出，只列出匹配标签部分 |
-| `-d` |                                                              |
+| `-d` | --detele 删除标签                                            |
 
 -   命令使用
+
+    （1） 创建&推送&删除标签
 
 ```bash
 #为最新的提交创建标签
@@ -781,18 +784,362 @@ $ git log --oneline
 1195c9f (tag: v3.0) update a.c
 ```
 
-#### 5.2.18 git branch
-
--   语法格式
--   参数选项
--   命令使用
+​		（2）查看标签
 
 ```bash
+$ git tag -l
+$ git tag -l v7
+$ git show v7
+tag v7
+Tagger: zhonglihua <fridy@outlook.com>
+Date:   Mon Jan 16 18:39:34 2023 +0800
+
+version 7
+
+commit 5a965a32e112fa6443330db5555d5a753ca8ff3b (tag: v7)
 
 ```
 
-## 7 Git 工具
+​		(3) 重命名标签
+
+```bash
+# 重命名后，需要手动删除旧的标签
+git tag newTag oldTag
+git tag -d oldTag 
+```
+
+
+
+#### 5.2.18 git branch
+
+-   语法格式
+
+```
+git branch branchName [commitId]
+```
+
+-   参数选项
+
+| 参数          | 备注                                 |
+| ------------- | ------------------------------------ |
+| `-a`          | --all , 列出所有分支，包含远程分支。 |
+| `-r`          | --remote, 进查看远程分支。           |
+| `-d`          | --delete， 删除一个分支              |
+| `-D`          | 大写，表示强制性删除一个分支         |
+| `-m`          | --move , 重命名分支                  |
+| `--merged`    | 查看与当前分支合并过的分支           |
+| `--no-merged` | 查看与当前分支没有合并过的分支       |
+| `-v`          | -vv, --verbose 显示提示记录          |
+
+-   命令使用
+
+​		(1)	创建和查看分支
+
+```bash
+# 在当前HEAD指向的commit上创建分支
+git branch branchName
+# 列出所有分支
+git branch -a
+# 创建分支并切换
+git checkout -b branchName [commitId]
+```
+
+​		（2）重命名分支
+
+```bash
+# 重命名分支
+git branch -m old_branch new_branch
+# 将分支推送到远程分支
+git  push origin new_branch
+# 删除远程分支
+git push origin --delete old_branch
+To github.com:zh0nglihua/Demo.git
+ - [deleted]         old_branch
+
+```
+
+​		（3）	删除分支
+
+```bash
+# 删除分支	
+git branch -d branch_name
+# 删除远程分支
+git push origin -d branch_name
+# 删除远程分支
+git push origin :branch_name
+```
+
+​		（4） 切换分支
+
+```bash
+git checkout branch_name
+```
+
+​		(5)	修剪分支
+
+```bash
+# 同步本地remotes分支记录，从这个记录中去除本地存在的分支，但远程不存在。
+git fetch -p 
+From github.com:zh0nglihua/Demo
+ - [deleted]         (none)     -> origin/new_branch
+git barnch -a
+* demo_branch_xx
+  main
+  new_branch
+  remotes/origin/demo_branch_xx
+  remotes/origin/main
+# 要查看设置的所有跟踪分支
+ git branch -vv
+  demo_branch_xx 0527793 update a.c
+* main           5a4e37d [origin/main] update a.c
+  new_branch     7041659 [origin/demo_branch_2: gone] update a.c
+
+```
+
+​		(6) 跟踪分支
+
+```bash
+# 创建分支brach1, 并设置上流（up-stream）分支关联
+git checkout  --track origin/branch1
+# 对已经存在的分支，配置up-stream上流关联。
+git branch -u origin/branch1
+```
+
+#### 	5.2.19	git merge
+
+-   语法格式
+
+```
+git merge [optinos]  HEAD <commit | branchname>
+```
+
+-   参数选项
+
+| 选项 | 备注  |
+| ---- | ----- |
+| -m   | <msg> |
+
+-   使用命令	
+
+```bash
+# 合并分支到当前开支
+$ git merge branch2
+Updating 5a4e37d..f789cea
+Fast-forward
+ a.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+# 合并当前分支并修改冲突
+# ======= 上部为HEAD内容，下部为branch
+$ git merge branch2
+ Auto-merging a.c
+ CONFLICT (content): Merge conflict in a.c
+ Automatic merge failed; fix conflicts and then commit the result.
+$ vim a.c 
+ git brach
+ <<<<<<< HEAD
+ lllll
+ 2222222222
+ =======
+ heooo
+ >>>>>>> branch2
+ 1111111111
+$ vim a.c 
+$ git commit -am "merge main with branch2"
+	[main 3abd737] merge main with branch2
+$ git log -4 --oneline --graph
+*   3abd737 (HEAD -> main) merge main with branch2
+|\
+| * 758066b (branch2) update a.c
+* | 33cc386 update a.c in main branch
+|/
+* f789cea modified hello
+```
+
+​	补充信息
+
+```vim
+a.c in main
+	git branch
+	lllll
+	2222222222
+	1111111111
+a.c in branch2
+    git branch
+    heooo
+    1111111111
+```
+
+#### 	5.2.20	git rebase
+
+​	rebase 命令将提交到某一分支上的所有修改都移至另一分支上 ，命令将当前分支里的每个提交(commit)取消掉，并且临时保存为补丁(patch)(放到 “.git/rebase” 目录)，然后把 当前分支的差异补丁应用到目标分标，相当于当前分支的基楚commit_id变为目标分支。
+
+​		![normal](./image/branch.jpg)
+
+![rebase](./image/rebase.jpg)
+
+
+
+-   语法格式
+
+```
+git rebase [options] branch_name
+```
+
+-   参数选项
+
+| 选项 | 备注                |
+| ---- | ------------------- |
+| `-m` | --merge 合并        |
+| `-f` | --force-rebase 强制 |
+
+-   命令使用
+
+```bash
+# 创建分支rebase_branch，并换
+git checkout -b rebase_branch 
+git rebase main
+# 修改冲突
+git rebase --continue
+git log --oneline --graph
+* a3bbdfe (HEAD -> main, rebase_branch) update a.c in main branch
+*   3abd737 merge main with branch2
+|\
+| * 758066b (branch2) update a.c
+* | 33cc386 update a.c in main branch
+|/
+* f789cea modified hello
+* 140e945 (origin/branch2) update a.c
+```
+
+## 6 Git 工具
+
+### 6.1 git show
+
+​	 git show 操作的对象为object (blobs，树，标签和提交), 对于提交，它显示日志消息和文本差异。
+
+-   语法格式
+
+```
+git show [options] <object>
+```
+
+-   命令使用
+
+```bash
+# 显示commit id情况
+$ git show 3abd737
+commit 3abd73787356e6c1e8d90c0937c6a63542bc4c78
+Merge: 33cc386 758066b
+Author: zhonglihua <fridy@outlook.com>
+Date:   Tue Jan 17 00:16:23 2023 +0800
+
+    merge main with branch2
+
+diff --cc a.c
+index 751dd95,63059fe..64d9885
+--- a/a.c
++++ b/a.c
+@@@ -1,4 -1,3 +1,5 @@@
+  git branch
+ +lllll
+ +2222222222
++ heooo
+  1111111111
+```
+
+```bash
+# 显示提交里的某个文件差异
+git show 3abd737 b.c
+# 显示分支信息
+git shwo branch
+```
+
+### 6.2git reflog
+
+​	查看所有分支的提交记录，同时也包含被删除的记录，可用于恢复提交。
+
+-   语法格式
+
+```
+git reflog <subcommand> <options>
+```
+
+-   命令使用
+
+```bash
+# 查看所有分支提交记录
+git reflog
+# 查看某个分支的提交记录
+git reflog branch2
+342dc20 (HEAD -> branch2) branch2@{0}: commit: update a.c
+758066b branch2@{1}: commit: update a.c
+f789cea branch2@{2}: commit: modified hello
+140e945 (origin/branch2) branch2@{3}: commit: update a.c
+5a4e37d (tag: v8, origin/branch1, branch1) branch2@{4}: branch: Created from 5a4e37d
+```
+
+### 6.3 git stash
+
+​	  暂存当前工作文件，但不添加到index区。
+
+-   语法格式
+
+```
+git stash <subcommand> [options]
+```
+
+-   命令使用
+
+```bash
+# 将当前的工作区缓存起来
+$ git stash
+Saved working directory and index state WIP on main: a3bbdfe update a.c in main branch
+$ git stash list
+stash@{0}: WIP on main: d669fcd update
+stash@{1}: WIP on main: a3bbdfe update a.c in main branch
+# 弹出最后一次（d669fcd）缓存 
+$ git stash pop
+$ git stash list
+stash@{0}: WIP on main: a3bbdfe update a.c in main branch
+# 弹出指定 stash@{1}
+$ git stash pop stash@{1}
+# 清除缓存 
+$ git stash clear
+# 丢掉最后一次缓存
+git stash drop
+```
+
+### 6.4 git clean
+
+​	删除当前工作区没有被跟踪过（untracked）的文件。
+
+-   语法命令
+
+```bash
+git clean [options]
+```
+
+-   选项参数
+
+| 参数 | 备注                                                         |
+| ---- | ------------------------------------------------------------ |
+| `-n` | -dry-run 删除演练，不会实际进行操作                          |
+| `-d` | --delete 删除                                                |
+| `-f` | --force 强制，不会删除 .gitignore 文件里面指定的文件夹和文件， 不管这些文件有没有被 track 过 |
+| `-x` | .gitignore  里忽略的文件，如果 没有untracked，也会进行删除。 |
+| -`X` | 只处理.gitignnore里的文件。                                  |
+
+-   使用命令
+
+```bash
+$ git clean -n
+Would remove f.c
+Would remove h.c
+
+$ git clean -d
+Removing f.c
+Removing h.c
+```
 
 ## 7 Git提交代码规范
-
-## 8 Git原理
