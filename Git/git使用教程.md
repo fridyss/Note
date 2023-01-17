@@ -1128,7 +1128,7 @@ git clean [options]
 | `-d` | --delete 删除                                                |
 | `-f` | --force 强制，不会删除 .gitignore 文件里面指定的文件夹和文件， 不管这些文件有没有被 track 过 |
 | `-x` | .gitignore  里忽略的文件，如果 没有untracked，也会进行删除。 |
-| -`X` | 只处理.gitignnore里的文件。                                  |
+| `-X` | 只处理.gitignnore里的文件。                                  |
 
 -   使用命令
 
@@ -1142,4 +1142,59 @@ Removing f.c
 Removing h.c
 ```
 
-## 7 Git提交代码规范
+## 7 Git代码提交规范
+
+### 	7.1 提交规范
+
+-   格式
+
+```
+<type>[<scope>]: <subject>
+```
+
+-   type 类型
+
+| 类型       | 功能                     |
+| ---------- | ------------------------ |
+| `feat`     | 新功能                   |
+| `fix`      | 修复                     |
+| `docs`     | 文件                     |
+| `style`    | 代码格式改变             |
+| `refactor` | 代码重构                 |
+| `test`     | 增加测试                 |
+| `chore`    | 构建过程或辅助工具的变动 |
+
+-   scope : 用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同.
+-   subject :  提交信息，常用动词开头，add, modify ,del, change ,update。
+
+### 7.2  更改提交信息
+
+​	有时，我们需要重新对已经提交的信息进行更改，可以通过变基命令进行修改。
+
+```bash
+#查看当前提交情况
+$ git log --oneline  -3
+45b9390 (HEAD -> main) feat : modify commit message
+1a20bb9 (origin/main) update
+24d081d test git clean
+# 以24d081d为基，进行变基操作,--interactive, 表示交付式操作。 
+$ git rebase --interactive 24d081d 
+pick 1a20bb9 update
+pick 45b9390 feat : modify commit message
+# 将pick改为edit表示要操作的提交。
+edit 1a20bb9 update
+pick 45b9390 feat : modify commit message
+$ git commit --amend -m "feat : update 1a20bb9 commit massage"
+[detached HEAD bf44f14] feat : update 1a20bb9 commit massage
+ Date: Tue Jan 17 17:37:49 2023 +0800
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+# 变基操作
+$ git rebase --continue
+Successfully rebased and updated refs/heads/main.
+# 查看变基后的log
+$ git log --oneline -3
+  c0adfe1 (HEAD -> main) feat : modify commit message
+  bf44f14 feat : update 1a20bb9 commit massage
+  24d081d test git clean
+```
+
