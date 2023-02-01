@@ -8,6 +8,7 @@
 
 在文件系统中，定义如何文件结构， 在test 文件下存在两个字文件夹，subdir1， subdir2, obj 是用来存放目标文件。
 
+```shell
 test
 ├── a.c
 ├── b.c
@@ -20,6 +21,7 @@ test
 └── subdir2
     ├── d.c
     └── d.h
+```
 
 顶层Makefile内容如下 。
 
